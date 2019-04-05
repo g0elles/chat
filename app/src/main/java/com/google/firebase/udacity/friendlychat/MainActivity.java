@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     private Button mSendButton;
 
     private String mUsername;
-
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseStorage mFirebaseStorage;
     private DatabaseReference mMessagesDatabaseReference;
@@ -96,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
         mMessagesDatabaseReference= mFirebaseDatabase.getReference().child("messages");
         mChatPhotosStorageReference= mFirebaseStorage.getReference().child("chat_photos/");
         // Initialize references to views
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mMessageListView = (ListView) findViewById(R.id.messageListView);
-        mPhotoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);
-        mMessageEditText = (EditText) findViewById(R.id.messageEditText);
-        mSendButton = (Button) findViewById(R.id.sendButton);
+        mProgressBar =  findViewById(R.id.progressBar);
+        mMessageListView =  findViewById(R.id.messageListView);
+        mPhotoPickerButton =  findViewById(R.id.photoPickerButton);
+        mMessageEditText =  findViewById(R.id.messageEditText);
+        mSendButton =  findViewById(R.id.sendButton);
 
         // Initialize message ListView and its adapter
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
@@ -173,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setAvailableProviders(Arrays.asList(
                                             new AuthUI.IdpConfig.GoogleBuilder().build(),
                                             new AuthUI.IdpConfig.FacebookBuilder().build()
+
                                     ))
                                     .build(),
                             RC_SIGN_IN);
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
+                intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
                 startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
             }
@@ -225,8 +225,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (requestCode == RC_PHOTO_PICKER && resultCode ==RESULT_OK) {
             Uri selectedImageUri = data.getData();
-            // if content://local_images/foo/4 than the image would be saved as "4"
-            // gets a ref to store file at chat_photos/<FILENAME>
+
             final StorageReference photoRef =
                     mChatPhotosStorageReference.child(selectedImageUri.getLastPathSegment());
             // upload file to Fb storage
