@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : {
+      "namespace": "chat",
+      "package_name": "com.google.firebase.udacity.friendlychat",
+      "sha256_cert_fingerprints": ["9E:27:C3:9D:56:B0:CD:17:88:7F:10:D5:64:09:F5:D3:A9:05:51:E4:C5:3B:A6:69:47:5B:75:87:47:BC:C7:5A"]
+    }
+  }
+}
