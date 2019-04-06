@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                                             new AuthUI.IdpConfig.GoogleBuilder().build(),
                                             new AuthUI.IdpConfig.FacebookBuilder().build()
 
+
                                     ))
                                     .build(),
                             RC_SIGN_IN);
